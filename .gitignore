@@ -123,3 +123,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+tts.mp3
+test.py
+.vscode/launch.json
+.vscode/settings.json
