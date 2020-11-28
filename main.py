@@ -1,6 +1,6 @@
 from gtts import gTTS
 import speech_recognition as sr
-import comparestrings as cs
+import utils
 r = sr.Recognizer()
 def checkpronunciation():
     truetext = input("Telaffuzunu kontrol etmek istediğiniz sözcüğü giriniz:").strip()
@@ -9,13 +9,17 @@ def checkpronunciation():
         audio = r.listen(source)
         rtext = str(r.recognize_google(audio,language = "tr"))
         print(rtext)
-        mp = round(cs.match_percent(truetext,rtext),4)
+        mp = round(utils.match_percent(truetext,rtext),4)
         print("Telaffuzunuz %",mp*100,"doğru")
         if mp!=1:
-            # Hatalı yerleri göster
-            pass
-print("Merhaba!\n")
+            i = input("Telaffuzunuzdaki hataları görmek ister misiniz?(e/h)")
+            while not((i=="e")or(i=="h")):
+                i = input("Telaffuzunuzdaki hataları görmek ister misiniz?(e/h)")
+            if i=="e":
+                utils.check_match(truetext,rtext)
+            
 
+print("Merhaba!\n")
 cikis = False
 while cikis == False:
     checkpronunciation()
@@ -25,4 +29,4 @@ while cikis == False:
             cikis = int(p=="h")
             break
 
-print("Program kapatılıyor...")
+input("Çıkış için enter tuşuna basınız")
